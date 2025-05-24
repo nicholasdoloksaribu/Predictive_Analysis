@@ -1,4 +1,4 @@
-# Laporan Proyek Machine Learning - Bagus Angkasawan Sumantri Putra
+# Laporan Proyek Machine Learning - Nicholas Juniarto Doloksaribu
 
 ## Domain Proyek
 
