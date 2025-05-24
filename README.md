@@ -2,9 +2,9 @@
 
 ## Domain Proyek
 
-Obesitas adalah masalah kesehatan yang makin mengkhawatirkan secara global dan mendesak untuk diatasi. Menurut WHO, pada tahun 2016 lebih dari 1,9 miliar orang dewasa mengalami kelebihan berat badan, dan lebih dari 650 juta di antaranya mengalami obesitas. Kondisi ini meningkatkan risiko penyakit kronis seperti diabetes, jantung, dan kanker. Karena itu, pendeteksian dini tingkat obesitas menjadi semakin penting untuk mencegah komplikasi serius di masa depan. 
+Obesitas merupakan masalah kesehatan global yang terus meningkat. Menurut WHO (2016), lebih dari 650 juta orang dewasa mengalami obesitas, yang meningkatkan risiko berbagai penyakit kronis seperti diabetes, jantung, dan kanker. Deteksi dini tingkat obesitas menjadi sangat penting sebagai langkah preventif.
 
-Penerapan machine learning dalam klasifikasi obesitas berdasarkan atribut personal seperti usia, jenis kelamin, tinggi badan, berat badan, BMI, dan tingkat aktivitas fisik menawarkan solusi cepat dan akurat untuk mempercepat intervensi medis atau gaya hidup.
+Dengan pendekatan Machine Learning, klasifikasi obesitas berdasarkan atribut personal seperti usia, berat badan, tinggi badan, dan aktivitas fisik dapat dilakukan secara cepat dan akurat untuk membantu pengambilan keputusan medis.
 
 **Referensi:**
 - [World Health Organization - Obesity and Overweight](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight)
@@ -12,18 +12,18 @@ Penerapan machine learning dalam klasifikasi obesitas berdasarkan atribut person
 ## Business Understanding
 
 ### Problem Statements
-- Bagaimana mengklasifikasikan tingkat obesitas seseorang berdasarkan data personal dan aktivitas fisiknya?
-- Model machine learning apa yang paling akurat dalam melakukan klasifikasi ini?
+- Bagaimana mengklasifikasikan tingkat obesitas seseorang berdasarkan atribut personal dan gaya hidup?
+- Model machine learning apa yang paling akurat untuk tugas klasifikasi ini?
 
 Permasalahan ini penting untuk segera diselesaikan, mengingat angka obesitas dunia yang terus meningkat dan dampaknya terhadap kualitas hidup serta biaya kesehatan jangka panjang. Solusi yang cepat dan tepat melalui model prediksi dapat berperan besar dalam strategi pencegahan.
 
 ### Goals
 - Membuat model klasifikasi obesitas yang efektif dan akurat.
-- Membandingkan performa berbagai model machine learning untuk memilih model terbaik.
+- Membandingkan performa model Logistic Regression, Random Forest, dan SVM untuk memilih model terbaik.
 
 ### Solution Statements
+- Preprocessing data dengan encoding dan scaling.
 - Menggunakan algoritma Logistic Regression, Random Forest, dan SVM untuk membangun model klasifikasi.
-- Melakukan preprocessing untuk memaksimalkan performa model.
 - Menggunakan classification report, confusion matrix, dan akurasi sebagai metrik evaluasi.
 
 ## Data Understanding
@@ -38,7 +38,7 @@ Permasalahan ini penting untuk segera diselesaikan, mengingat angka obesitas dun
 ### Kondisi Data
 - **Missing Value**: Tidak ditemukan missing value.
 - **Duplikat**: Tidak ditemukan data duplikat.
-- **Outlier**: Outlier ringan ditemukan terutama pada fitur berat badan (Weight), namun masih dalam batas wajar dan tidak dibuang karena tetap merepresentasikan populasi obesitas.
+- **Outlier**: Ada, tapi tetap dipertahankan karena relevan
 
 ### Fitur-Fitur pada Dataset
 | Nama Fitur | Tipe Data | Deskripsi |
@@ -55,15 +55,15 @@ Permasalahan ini penting untuk segera diselesaikan, mengingat angka obesitas dun
 
 1. **Distribusi Kategori Obesitas**  
    ![Distribusi Kategori Obesitas](images/countplot.png)  
-   **Penjelasan:** Plot batang di atas menunjukkan distribusi kategori obesitas dalam dataset. Terlihat bahwa kategori 'Normal weight' dan 'Overweight' memiliki jumlah data yang paling banyak, sementara kategori 'Underweight' memiliki jumlah data yang paling sedikit. Hal ini mengindikasikan bahwa dataset mungkin sedikit tidak seimbang.
+   **Penjelasan:** Distribusi kategori menunjukkan ketimpangan data — kategori Normal weight dan Overweight mendominasi. Ketidakseimbangan kelas seperti ini penting diperhatikan karena dapat memengaruhi performa model, terutama pada kelas minoritas seperti Underweight.
 
 2. **Korelasi Antar Fitur Numerik**  
    ![Heatmap Korelasi](images/heatmap.png)  
-   **Penjelasan:** Heatmap di atas memvisualisasikan korelasi antar fitur numerik dalam dataset. Dari heatmap, dapat dilihat bahwa terdapat korelasi positif yang kuat antara 'Weight' dan 'BMI', yang sesuai dengan definisi BMI yang dihitung berdasarkan berat badan dan tinggi badan. Beberapa fitur lainnya juga menunjukkan korelasi, meskipun tidak sekuat antara 'Weight' dan 'BMI'.
+   **Penjelasan:** Korelasi tinggi antara Weight dan BMI menegaskan bahwa kedua variabel ini saling berkaitan secara langsung. Sebaliknya, PhysicalActivityLevel menunjukkan korelasi yang lebih lemah dengan BMI, mengindikasikan bahwa obesitas tidak hanya dipengaruhi oleh aktivitas fisik tetapi juga faktor lain seperti genetika dan pola makan.
 
 3. **Hubungan Antar Fitur Numerik (Pairplot)**  
    ![Pairplot Fitur](images/pairplot.png)  
-   **Penjelasan:** Pairplot di atas menggambarkan hubungan antara beberapa fitur numerik dan kategori obesitas. Terlihat bahwa individu dengan 'Weight' dan 'BMI' yang lebih tinggi cenderung berada pada kategori obesitas yang lebih tinggi. Selain itu, fitur-fitur seperti 'Age', 'Height', dan 'PhysicalActivityLevel' juga menunjukkan variasi yang berbeda di setiap kategori obesitas.
+   **Penjelasan:** Membuat pair plot untuk memvisualisasikan hubungan antara beberapa fitur numerik dan kategori obesitas. Dari plot, kita bisa melihat bagaimana fitur-fitur seperti 'Age', 'Height', 'Weight', 'BMI', dan 'PhysicalActivityLevel' bervariasi di setiap kategori obesitas. Misalnya, terlihat bahwa individu dengan 'Weight' dan 'BMI' yang lebih tinggi cenderung berada di kategori obesitas yang lebih tinggi.
 
 ## Data Preparation
 
@@ -164,3 +164,9 @@ Tiga model dibandingkan, yaitu Logistic Regression, Random Forest, dan Support V
 - **Goal** dalam Business Understanding berhasil **dicapai** karena model menunjukkan **konsistensi antara precision dan recall yang tinggi**, dibuktikan dengan **F1-score sebesar 0.99**, yang menandakan keseimbangan sangat baik dalam mendeteksi semua kelas obesitas secara akurat.
 - **Solution statement** terbukti **berdampak positif**, karena model memiliki **recall sebesar 0.99**, yang berarti mampu menangkap hampir seluruh data kategori obesitas yang sebenarnya, sehingga sangat mendukung sistem monitoring untuk pencegahan obesitas.
 - Secara keseluruhan, model ini **selaras dengan kebutuhan bisnis**, karena berdasarkan **confusion matrix**, kesalahan klasifikasi sangat minim, menjadikannya **alat prediksi yang cepat, akurat, dan dapat diandalkan** untuk aplikasi praktis di dunia nyata, terutama dalam konteks kesehatan masyarakat.
+- Model telah berhasil menjawab problem statement dan mencapai goals bisnis secara menyeluruh.
+- Sangat cocok untuk implementasi nyata di bidang kesehatan sebagai alat bantu deteksi dini obesitas.
+
+
+## Insight Bisnis
+Dengan akurasi prediksi hampir sempurna, model ini dapat diintegrasikan ke dalam sistem kesehatan digital untuk memberikan intervensi gaya hidup yang cepat dan tepat, mengurangi risiko penyakit kronis dan beban biaya kesehatan di masa depan dan kalau modelnya sudah dituning akurasinya makin bagus alat ini semakin dipercaya dan membantu dunia medis.
